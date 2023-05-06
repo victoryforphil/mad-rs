@@ -7,16 +7,18 @@
 use bevy::prelude::Component;
 
 #[derive(Component, Debug, Clone, Copy, PartialEq)]
-pub struct SelectedComponent{
+pub struct SelectableComponent{
     pub client: u16,
-    pub on_the_go: bool
+    pub active: bool,
+    pub moving: bool
 }
 
-impl SelectedComponent{
-    pub fn new(client: u16, on_go: bool) -> Self{
-        SelectedComponent{
+impl SelectableComponent{
+    pub fn new(client: u16) -> Self{
+        SelectableComponent{
             client,
-            on_the_go: on_go
+            active: false,
+            moving: false
         }
     }
 }

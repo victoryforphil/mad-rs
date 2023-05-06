@@ -9,3 +9,7 @@ edition = "2021"
 bevy = "0.10.1"
 bevy_egui = "0.20"
 bevy-inspector-egui = "0.18.3"
+bevy_mod_picking = {"version" = "0.13.0", features = ["backend_sprite"]}
+strum = "0.24"
+strum_macros = "0.24"
+enum_dispatch = "0.3.11"

@@ -2,8 +2,8 @@
 
 use bevy::prelude::*;
 
-#[derive(Component, Debug, Clone, Copy, PartialEq)]
+#[derive(Component, Debug, Clone, PartialEq)]
 pub struct NameComponent {
-    pub name: &'static str,
-    pub desc: &'static str,
+    pub name: String,
+    pub desc: String,
 }
