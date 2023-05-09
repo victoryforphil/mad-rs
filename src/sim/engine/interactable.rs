@@ -104,6 +104,7 @@ mod tests{
         assert_eq!(interactable.get_parameters().len(), 0);
     }
 
+    #[test]
     fn test_action(){
        
         
@@ -136,6 +137,39 @@ mod tests{
 
         assert_eq!(interactable.get_actions().len(), 3);
         assert_eq!(interactable.get_parameters().len(), 0);
-        
+
+    }
+
+    #[test]
+    fn test_parameter(){
+        let parameter_1 = InteractParameter{
+            name: String::from("Test Parameter 1 "),
+            description: String::from("A test parameter 1"),
+            value: InteractParameterValue::String(String::from("Test String")),
+            render: ||{},
+        };
+
+        let parameter_2 = InteractParameter{
+            name: String::from("Test Parameter 2 "),
+            description: String::from("A test parameter 2"),
+            value: InteractParameterValue::Number(1.0),
+            render: ||{},
+        };
+
+        let parameter_3 = InteractParameter{
+            name: String::from("Test Parameter 3 "),
+            description: String::from("A test parameter 3"),
+            value: InteractParameterValue::Boolean(true),
+            render: ||{},
+        };
+
+        let mut interactable = TestInteractable::new();
+
+        interactable.parameters.push(parameter_1);
+        interactable.parameters.push(parameter_2);
+        interactable.parameters.push(parameter_3);
+
+        assert_eq!(interactable.get_actions().len(), 0);
+        assert_eq!(interactable.get_parameters().len(), 3);
     }
 }
