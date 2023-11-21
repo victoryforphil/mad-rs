@@ -44,6 +44,10 @@ impl MADWorld{
         self.entity_idx += 1;
     }
 
+    pub fn get_entity(&self, idx: u32) -> Option<&Box<dyn MADEntity>>{
+        self.entities.get(&idx)
+    }
+
     pub fn update(&mut self, delta_time: &MADTime){
         for (_, entity) in &mut self.entities{
             entity.update(delta_time);
@@ -78,10 +82,22 @@ mod tests{
         let mut world = MADWorld::new();
         let time = MADTime::new();
 
-        let entity = Box::new(MADTestEntity{test_state: 0});
+        let entity = Box::new(MADTestEntity{test_state: 0, position: Position::zero()});
         world.add_entity(entity);
 
         assert_eq!(world.entities.len(), 1);
+    }
+
+    #[test]
+    fn test_world_get_entity(){
+        let mut world = MADWorld::new();
+        let time = MADTime::new();
+
+        let entity = Box::new(MADTestEntity{test_state: 0, position: Position::zero()});
+        world.add_entity(entity);
+
+        let entity = world.get_entity(0).unwrap();
+        assert_eq!(entity.test_state, 0);
     }
 
     
