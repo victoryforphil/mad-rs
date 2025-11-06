@@ -1,0 +1,13 @@
+[package]
+name = "mad-osm-importer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mad-core = { path = "../mad-core" }
+mad-datastore = { path = "../mad-datastore" }
+
+[[bin]]
+name = "mad-osm-importer"
+path = "src/main.rs"
+

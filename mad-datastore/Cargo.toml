@@ -1,0 +1,12 @@
+[package]
+name = "mad-datastore"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mad-core = { path = "../mad-core" }
+
+[lib]
+name = "mad_datastore"
+path = "src/lib.rs"
+
