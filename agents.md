@@ -10,6 +10,6 @@ Use the following format for commit messages:
 
 Examples:
 - `- Repo // Generated Base rust crates`
-- `- Feature // Added user authentication`
-- `- Bugfix // Fixed memory leak in parser`
+- `- Datastore // Added user authentication`
+- `- WebGame // Fixed memory leak in parser`
 
