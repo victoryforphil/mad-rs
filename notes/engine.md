@@ -17,3 +17,9 @@
 - Message based is easy to tap for logging and replays.. hmmmm
 - Queue per region or zone?
 - Engine instance per region or zone?
+- Time just another part of querable state? 
+  - So those that care can add to their request list of data? 
+  - A "Time" system can update it 
+    - Triggering time system is same as a dedicated "TIck" event
+- Whole engine is just event listeners?
+  - I kinda like it.
