@@ -1,0 +1,19 @@
+- Ticks at fix rate(s) ?
+  - Slow tick / realtime tick?
+- Message based commmand queue?
+  - Respond to commands like spawn
+  - Run "systems" on a event or triggered manually
+  - Respond to queries
+    - Is this just triggered systems?
+  - Triggering systems
+  - Set values
+  - Tick time forward?
+  - Publish updates
+    - Instead of request / response
+    - This means we can push commands mid "tick" so like if earlier we SET that may append a NOTIFY
+- ECS Like system 
+- One shot commands for stuff like spawning instead of "bundles"
+- Systems run one per region or cell? 
+- Message based is easy to tap for logging and replays.. hmmmm
+- Queue per region or zone?
+- Engine instance per region or zone?
