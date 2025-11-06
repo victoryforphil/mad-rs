@@ -1,4 +1,9 @@
 
+- Each Grid Region gets a datastore
+- Each datastore contains multiple tables, one per cell. 
+- Each datastore containts tables, one per type of layer or component
+- Each table is indexed by a grid cell and has their relvant type's index and data.
+
 
 # Storage Layers
 ## Layer 0: Zone
@@ -26,3 +31,8 @@
 - key: string
 - value: bytes (optional)
 - index: [GridCell](./types.md#utm-cell)
+
+
+## Live API
+- Consists of Pub/Sub model 
+- 

@@ -891,7 +891,11 @@ dependencies = [
 name = "mad-datastore"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "log",
  "mad-core",
+ "serde",
+ "thiserror 2.0.17",
 ]
 
 [[package]]

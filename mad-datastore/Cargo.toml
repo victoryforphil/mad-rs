@@ -4,7 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.100"
+log = "0.4.28"
 mad-core = { path = "../mad-core" }
+serde = { version = "1.0.228", features = ["derive"] }
+thiserror = "2.0.17"
 
 [lib]
 name = "mad_datastore"
