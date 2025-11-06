@@ -7,6 +7,8 @@ pub use entity_row::*;
 mod entity_table;
 pub use entity_table::*;
 
+mod entity_query;
+pub use entity_query::*;
 
 mod layer_row;
 pub use layer_row::*;
@@ -19,3 +21,6 @@ pub use datastore::*;
 
 mod stored_type;
 pub use stored_type::*;
+
+mod layer_query;
+pub use layer_query::*;

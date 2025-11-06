@@ -23,4 +23,15 @@ impl Debug for LayerRow{
     }
 }
 
+impl LayerRow{
+    pub fn new(cell: GridCell) -> Self{
+        Self{ cell, index: 0, fields: HashMap::new() }
+    }
+    pub fn get_field(&self, key: &str) -> Option<&StoredType>{
+        self.fields.get(key)
+    }
+    pub fn set_field(&mut self, key: String, value: StoredType){
+        self.fields.insert(key, value);
+    }
+}
 

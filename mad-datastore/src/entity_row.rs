@@ -20,3 +20,15 @@ impl Debug for EntityRow{
         write!(f, "}} }}")
     }
 }
+
+impl EntityRow{
+    pub fn new(cell: GridCell, entity_index: u32) -> Self{
+        Self{ cell, index: 0, entity_index, fields: HashMap::new() }
+    }
+    pub fn get_field(&self, key: &str) -> Option<&StoredType>{
+        self.fields.get(key)
+    }
+    pub fn set_field(&mut self, key: String, value: StoredType){
+        self.fields.insert(key, value);
+    }
+}
