@@ -5,7 +5,7 @@
 Use the following format for commit messages:
 
 ```
-- {topic} // {desc}
+{topic} // {desc}
 ```
 
 Examples:
