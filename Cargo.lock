@@ -899,6 +899,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "mad-engine"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "log",
+ "mad-datastore",
+ "serde",
+ "thiserror 2.0.17",
+]
+
+[[package]]
 name = "mad-osm-importer"
 version = "0.1.0"
 dependencies = [
