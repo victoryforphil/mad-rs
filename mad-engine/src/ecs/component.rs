@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use mad_datastore::StoredType;
+use mad_datastore::{StoredType, EntityRow};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct ECSComponent {

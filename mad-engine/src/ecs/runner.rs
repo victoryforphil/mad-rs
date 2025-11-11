@@ -1,13 +1,13 @@
 use std::collections::HashMap;
 
 use crate::command::ECSCommandType;
-use crate::component::{self, ECSComponent};
+use crate::component::ECSComponent;
 use crate::query::ECSQueryType;
 use crate::system::ECSSystem;
 use crate::timing::ECSTimingSystem;
 use log::*;
-use mad_datastore::{Datastore, EntityQuery};
-use mad_datastore::mad_core::geo::GridRegion;
+use mad_datastore::{Datastore, EntityQuery, EntityRow};
+use mad_datastore::mad_core::geo::{GridRegion, GridCell};
 pub type ECSSystemHandle = Box<dyn ECSSystem>;
 
 pub struct ECSSystemRunner {
@@ -42,7 +42,7 @@ impl ECSSystemRunner {
             for query in queries {
                 match query.query {
                     ECSQueryType::Component(component_name) => {
-                        let table = self.datastore.get_entity(component_name).unwrap();
+                        let table = self.datastore.get_entity(component_name.clone()).unwrap();
                         let rows =
                             table.query(EntityQuery::All);
                         for row in rows {
@@ -74,9 +74,11 @@ impl ECSSystemRunner {
             ECSCommandType::SpawnEntity(components) => {
                 debug!("Spawning entity with {} components", components.len());
                 let entity_index = self.datastore.get_entity_index();
+                // TODO: Use proper cell from command or context
+                let cell = GridCell::new(0, 0);
                 for component in components {
-                    let table = self.datastore.get_entity(component.name.clone()).unwrap();
-                    table.append_row(EntityRow::new(self.region.cell, entity_index));
+                    let table = self.datastore.get_entity_mut(component.name.clone()).unwrap();
+                    table.append_row(EntityRow::new(cell, entity_index));
                 }
             }
             ECSCommandType::AppendToEntity(entity_index, components) => {}
@@ -85,7 +87,14 @@ impl ECSSystemRunner {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::system::ECSSystemMock;
+
     #[test]
+    fn test_add_system() {
         let mut runner = ECSSystemRunner::new(GridRegion::new(0));
         let system = Box::new(ECSSystemMock::new());
         runner.add_system(system).unwrap();
@@ -145,7 +154,7 @@ impl ECSSystemRunner {
 
     #[test]
     fn test_timing_system_ticks() {
-        let mut runner = ECSSystemRunner::new();
+        let mut runner = ECSSystemRunner::new(GridRegion::new(0));
         let initial_tick_count = runner.timing_system.tick_count;
 
         runner.execute().unwrap();

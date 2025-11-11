@@ -4,3 +4,14 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+anyhow = "1.0.100"
+log = "0.4.28"
+serde = { version = "1.0.228", features = ["derive"] }
+thiserror = "2.0.17"
+tokio = { version = "1.42.0", features = ["full"] }
+env_logger = "0.11.6"
+mad-core = { path = "../mad-core" }
+mad-datastore = { path = "../mad-datastore" }
+mad-engine = { path = "../mad-engine" }
+mad-game = { path = "../mad-game" }
+pretty_env_logger = "0.5.0"

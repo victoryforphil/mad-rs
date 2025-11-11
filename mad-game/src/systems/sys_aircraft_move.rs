@@ -1,4 +1,5 @@
 use anyhow;
+use mad_engine::command::ECSCommandType;
 use mad_engine::component::ECSComponent;
 use mad_engine::system::ECSSystem;
 use std::collections::HashMap;
@@ -24,7 +25,7 @@ impl ECSSystem for SysAircraftMove {
         Vec::new()
     }
 
-    fn execute(&mut self, components: &HashMap<String, ECSComponent>) -> Result<(), anyhow::Error> {
+    fn execute(&mut self, _components: &HashMap<String, ECSComponent>, _commands: &mut Vec<ECSCommandType>) -> Result<(), anyhow::Error> {
         Ok(())
     }
 }

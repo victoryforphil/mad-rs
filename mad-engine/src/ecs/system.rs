@@ -7,7 +7,7 @@ use crate::{EventEntry, command::ECSCommandType, component::ECSComponent, ecs::q
 use log::*;
 
 // ----- Trait for ECS Systems -----
-pub trait ECSSystem {
+pub trait ECSSystem: Send {
     fn get_name(&self) -> String;
     fn get_queries(&mut self) -> Vec<ECSQuery>;
     fn execute(
@@ -49,7 +49,7 @@ impl ECSSystem for ECSSystemMock {
         self.queries.clone()
     }
 
-    fn execute(&mut self, components: &HashMap<String, ECSComponent>) -> Result<(), anyhow::Error> {
+    fn execute(&mut self, components: &HashMap<String, ECSComponent>, commands: &mut Vec<ECSCommandType>) -> Result<(), anyhow::Error> {
         debug!("Executing system with queries: {:?}", self.queries);
         self.last_result = Ok(());
         self.last_components = components.clone();

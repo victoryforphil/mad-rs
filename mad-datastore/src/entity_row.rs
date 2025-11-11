@@ -7,6 +7,7 @@ use mad_core::geo::GridCell;
 
 use crate::StoredType;
 
+#[derive(Clone)]
 pub struct EntityRow {
     pub cell: GridCell,
     pub index: u32,
