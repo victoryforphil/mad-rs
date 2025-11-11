@@ -20,7 +20,10 @@ impl OSMDownloader {
         fs::create_dir_all(&data_dir)
             .context(format!("Failed to create data directory: {:?}", data_dir))?;
 
-        debug!("Initialized OSMDownloader with data directory: {:?}", data_dir);
+        debug!(
+            "Initialized OSMDownloader with data directory: {:?}",
+            data_dir
+        );
         Ok(Self { data_dir })
     }
 
@@ -36,8 +39,12 @@ impl OSMDownloader {
             let local_size = fs::metadata(&file_path)
                 .context("Failed to get local file metadata")?
                 .len();
-            
-            info!("File exists locally: {:?} ({:.2} MB)", file_path, local_size as f64 / 1_000_000.0);
+
+            info!(
+                "File exists locally: {:?} ({:.2} MB)",
+                file_path,
+                local_size as f64 / 1_000_000.0
+            );
 
             // Check remote size with HEAD request
             let client = reqwest::Client::builder()
@@ -52,15 +59,22 @@ impl OSMDownloader {
                 .context(format!("Failed to check remote file size from {}", url))?;
 
             if let Some(remote_size) = response.content_length() {
-                info!("Remote file size: {:.2} MB", remote_size as f64 / 1_000_000.0);
-                
+                info!(
+                    "Remote file size: {:.2} MB",
+                    remote_size as f64 / 1_000_000.0
+                );
+
                 // Check if sizes are within 1% of each other
-                let size_diff = ((remote_size as i64 - local_size as i64).abs() as f64) / remote_size as f64;
+                let size_diff =
+                    ((remote_size as i64 - local_size as i64).abs() as f64) / remote_size as f64;
                 if size_diff < 0.01 {
                     info!("File size matches (within 1%), skipping download");
                     return Ok(file_path);
                 } else {
-                    info!("File size differs by {:.2}%, re-downloading", size_diff * 100.0);
+                    info!(
+                        "File size differs by {:.2}%, re-downloading",
+                        size_diff * 100.0
+                    );
                 }
             } else {
                 info!("Could not determine remote file size, re-downloading");
@@ -93,16 +107,14 @@ impl OSMDownloader {
         }
 
         // Write to file
-        let mut file =
-            fs::File::create(&file_path).context("Failed to create output file")?;
+        let mut file = fs::File::create(&file_path).context("Failed to create output file")?;
 
         let bytes = response
             .bytes()
             .await
             .context("Failed to read response body")?;
 
-        file.write_all(&bytes)
-            .context("Failed to write to file")?;
+        file.write_all(&bytes).context("Failed to write to file")?;
 
         let downloaded = bytes.len() as u64;
 

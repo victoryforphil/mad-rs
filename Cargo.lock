@@ -910,6 +910,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "mad-game"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "log",
+ "mad-core",
+ "mad-datastore",
+ "mad-engine",
+ "serde",
+ "thiserror 2.0.17",
+]
+
+[[package]]
 name = "mad-osm-importer"
 version = "0.1.0"
 dependencies = [
@@ -926,6 +939,10 @@ dependencies = [
  "thiserror 2.0.17",
  "tokio",
 ]
+
+[[package]]
+name = "mad-server"
+version = "0.1.0"
 
 [[package]]
 name = "matrixmultiply"

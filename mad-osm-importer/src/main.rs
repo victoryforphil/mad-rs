@@ -56,72 +56,73 @@ async fn main() -> Result<()> {
     relations_file.write_all(b"[\n")?;
 
     // Process each element
-    reader.for_each(|element| {
-        match element {
-            Element::Way(way) => {
-                if ways_count < MAX_EXAMPLES {
-                    ways_count += 1;
-                    if ways_count > 1 {
-                        let _ = ways_file.write_all(b",\n");
-                    }
-                    let json = serde_json::json!({
-                        "id": way.id(),
-                        "tags": way.tags().collect::<HashMap<_, _>>(),
-                        "refs": way.refs().collect::<Vec<_>>(),
-                    });
-                    let _ = ways_file.write_all(json.to_string().as_bytes());
+    reader.for_each(|element| match element {
+        Element::Way(way) => {
+            if ways_count < MAX_EXAMPLES {
+                ways_count += 1;
+                if ways_count > 1 {
+                    let _ = ways_file.write_all(b",\n");
                 }
+                let json = serde_json::json!({
+                    "id": way.id(),
+                    "tags": way.tags().collect::<HashMap<_, _>>(),
+                    "refs": way.refs().collect::<Vec<_>>(),
+                });
+                let _ = ways_file.write_all(json.to_string().as_bytes());
             }
-            Element::Node(node) => {
-                if nodes_count < MAX_EXAMPLES {
-                    nodes_count += 1;
-                    if nodes_count > 1 {
-                        let _ = nodes_file.write_all(b",\n");
-                    }
-                    let json = serde_json::json!({
-                        "id": node.id(),
-                        "lat": node.lat(),
-                        "lon": node.lon(),
-                        "tags": node.tags().collect::<HashMap<_, _>>(),
-                    });
-                    let _ = nodes_file.write_all(json.to_string().as_bytes());
+        }
+        Element::Node(node) => {
+            if nodes_count < MAX_EXAMPLES {
+                nodes_count += 1;
+                if nodes_count > 1 {
+                    let _ = nodes_file.write_all(b",\n");
                 }
+                let json = serde_json::json!({
+                    "id": node.id(),
+                    "lat": node.lat(),
+                    "lon": node.lon(),
+                    "tags": node.tags().collect::<HashMap<_, _>>(),
+                });
+                let _ = nodes_file.write_all(json.to_string().as_bytes());
             }
-            Element::DenseNode(dense_node) => {
-                if dense_nodes_count < MAX_EXAMPLES {
-                    dense_nodes_count += 1;
-                    if dense_nodes_count > 1 {
-                        let _ = dense_nodes_file.write_all(b",\n");
-                    }
-                    let json = serde_json::json!({
-                        "id": dense_node.id(),
-                        "lat": dense_node.lat(),
-                        "lon": dense_node.lon(),
-                        "tags": dense_node.tags().collect::<HashMap<_, _>>(),
-                    });
-                    let _ = dense_nodes_file.write_all(json.to_string().as_bytes());
+        }
+        Element::DenseNode(dense_node) => {
+            if dense_nodes_count < MAX_EXAMPLES {
+                dense_nodes_count += 1;
+                if dense_nodes_count > 1 {
+                    let _ = dense_nodes_file.write_all(b",\n");
                 }
+                let json = serde_json::json!({
+                    "id": dense_node.id(),
+                    "lat": dense_node.lat(),
+                    "lon": dense_node.lon(),
+                    "tags": dense_node.tags().collect::<HashMap<_, _>>(),
+                });
+                let _ = dense_nodes_file.write_all(json.to_string().as_bytes());
             }
-            Element::Relation(relation) => {
-                if relations_count < MAX_EXAMPLES {
-                    relations_count += 1;
-                    if relations_count > 1 {
-                        let _ = relations_file.write_all(b",\n");
-                    }
-                    let members: Vec<_> = relation.members().map(|m| {
+        }
+        Element::Relation(relation) => {
+            if relations_count < MAX_EXAMPLES {
+                relations_count += 1;
+                if relations_count > 1 {
+                    let _ = relations_file.write_all(b",\n");
+                }
+                let members: Vec<_> = relation
+                    .members()
+                    .map(|m| {
                         serde_json::json!({
                             "member_id": m.member_id,
                             "role": m.role().ok(),
                             "member_type": format!("{:?}", m.member_type),
                         })
-                    }).collect();
-                    let json = serde_json::json!({
-                        "id": relation.id(),
-                        "tags": relation.tags().collect::<HashMap<_, _>>(),
-                        "members": members,
-                    });
-                    let _ = relations_file.write_all(json.to_string().as_bytes());
-                }
+                    })
+                    .collect();
+                let json = serde_json::json!({
+                    "id": relation.id(),
+                    "tags": relation.tags().collect::<HashMap<_, _>>(),
+                    "members": members,
+                });
+                let _ = relations_file.write_all(json.to_string().as_bytes());
             }
         }
     })?;
@@ -135,8 +136,14 @@ async fn main() -> Result<()> {
     info!("Processing complete:");
     info!("  Ways: {} -> {:?}", ways_count, ways_file_path);
     info!("  Nodes: {} -> {:?}", nodes_count, nodes_file_path);
-    info!("  Dense Nodes: {} -> {:?}", dense_nodes_count, dense_nodes_file_path);
-    info!("  Relations: {} -> {:?}", relations_count, relations_file_path);
+    info!(
+        "  Dense Nodes: {} -> {:?}",
+        dense_nodes_count, dense_nodes_file_path
+    );
+    info!(
+        "  Relations: {} -> {:?}",
+        relations_count, relations_file_path
+    );
 
     Ok(())
 }

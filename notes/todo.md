@@ -1,0 +1,4 @@
+- [ ] Make mock / tests that use queries 
+- [ ] Utilities to convert form LLAs to entries
+- [ ] Constants for SF and notable locations / regions (YAML? TOML? JSON? LUA heh?)
+- [ ] 

@@ -1,0 +1,13 @@
+[package]
+name = "mad-game"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.100"
+log = "0.4.28"
+serde = { version = "1.0.228", features = ["derive"] }
+thiserror = "2.0.17"
+mad-core = { path = "../mad-core" }
+mad-datastore = { path = "../mad-datastore" }
+mad-engine = { path = "../mad-engine" }

@@ -1,8 +1,8 @@
 [workspace]
 members = [
     "mad-core",
-    "mad-datastore", "mad-engine",
-    "mad-osm-importer",
+    "mad-datastore", "mad-engine", "mad-game",
+    "mad-osm-importer", "mad-server",
 ]
 resolver = "2"
 
